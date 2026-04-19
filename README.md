@@ -13,6 +13,7 @@ A full-stack web application for viewing employee wellness suggestions, built wi
 
 ```bash
 cd VitrueWebAPI/VitrueWebAPI
+dotnet restore
 dotnet run
 ```
 
