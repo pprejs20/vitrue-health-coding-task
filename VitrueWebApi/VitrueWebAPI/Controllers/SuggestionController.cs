@@ -13,8 +13,8 @@ namespace VitrueWebAPI.Controllers
 
         public SuggestionController(ISuggestionStore suggestionStore, IEmployeeStore employeeStore)
         {
-            _suggestionStore = suggestionStore;
-            _employeeStore = employeeStore;
+            _suggestionStore = suggestionStore ?? throw new ArgumentNullException(nameof(suggestionStore));
+            _employeeStore = employeeStore ?? throw new ArgumentNullException(nameof(employeeStore));
         }
 
         [HttpGet]
