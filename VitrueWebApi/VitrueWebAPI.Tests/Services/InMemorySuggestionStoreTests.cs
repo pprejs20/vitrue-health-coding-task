@@ -41,7 +41,7 @@ namespace VitrueWebAPI.Tests.Services
         public async Task GetByIdAsync_NonExistentId_ReturnsNull()
         {
             var result = await _store.GetByIdAsync(NonExistentId);
-
+                
             result.ShouldBeNull();
         }
 

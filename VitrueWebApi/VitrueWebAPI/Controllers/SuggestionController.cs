@@ -9,14 +9,41 @@ namespace VitrueWebAPI.Controllers
     public class SuggestionController : ControllerBase
     {
         private readonly ISuggestionStore _suggestionStore;
+        private readonly IEmployeeStore _employeeStore;
 
-        public SuggestionController(ISuggestionStore suggestionStore)
+        public SuggestionController(ISuggestionStore suggestionStore, IEmployeeStore employeeStore)
         {
             _suggestionStore = suggestionStore;
+            _employeeStore = employeeStore;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll() => Ok(await _suggestionStore.GetAllAsync());
+
+        [HttpGet("view")]
+        public async Task<IActionResult> GetView()
+        {
+            var suggestions = await _suggestionStore.GetAllAsync();
+
+            var viewModels = await Task.WhenAll(suggestions.Select(async s =>
+            {
+                var employee = await _employeeStore.GetByIdAsync(s.EmployeeId);
+                return new SuggestionViewModel
+                {
+                    Id = s.Id,
+                    EmployeeName = employee?.Name ?? "Unknown",
+                    Type = s.Type,
+                    Description = s.Description,
+                    Status = s.Status,
+                    Priority = s.Priority,
+                    Source = s.Source,
+                    DateCreated = s.DateCreated,
+                    Notes = s.Notes,
+                };
+            }));
+
+            return Ok(viewModels);
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
