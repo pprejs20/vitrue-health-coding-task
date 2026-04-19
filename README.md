@@ -50,7 +50,8 @@ dotnet test
 │   │   ├── Services/               # In-memory store implementations
 │   │   └── TestData/               # Seed data loaded at startup
 │   └── VitrueWebAPI.Tests/         # MSTest unit tests
-│       └── Services/               # Tests for InMemorySuggestionStore
+│       ├── Controllers/            # Tests for SuggestionController
+│       └── Services/               # Tests for InMemorySuggestionStore and InMemoryEmployeeStore
 └── Frontend/
     └── src/
         ├── components/             # Reusable Vue components
