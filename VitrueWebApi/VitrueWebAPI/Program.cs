@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddSingleton<ISuggestionStore, InMemorySuggestionStore>();
+builder.Services.AddSingleton<IEmployeeStore, InMemoryEmployeeStore>();
 
 builder.Services.AddCors(options =>
 {
